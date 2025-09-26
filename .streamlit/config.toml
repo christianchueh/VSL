@@ -1,0 +1,15 @@
+[theme]
+# 主題基礎
+base="dark"
+
+# 主要背景色 (整個 App 的背景)
+backgroundColor="#000000"
+
+# 次要背景色 (例如側邊欄的顏色)
+secondaryBackgroundColor="#1C1C1E"
+
+# 文字顏色
+textColor="#FFFFFF"
+
+# 主要元件顏色 (例如按鈕、滑桿)
+primaryColor="#FF4B4B"
