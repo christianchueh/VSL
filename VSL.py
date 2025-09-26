@@ -6,7 +6,7 @@ import pandas as pd
 
 # --- 設定網頁標題和版面 ---
 st.set_page_config(layout="wide")  # 讓圖形使用更寬的頁面佈局
-st.title('從 CSV 檔案讀取數據的互動式螺旋圖')
+st.title('VSL 專項學習')
 
 # --- 從 CSV 檔案讀取節點數據 ---
 # (這部分和之前的腳本完全相同)
@@ -95,4 +95,4 @@ fig.update_layout(
 # 2. ★★★ 將 fig.show() 替換為 st.plotly_chart() ★★★
 st.plotly_chart(fig, use_container_width=True)
 
-st.write("圖形可以透過滑鼠進行旋轉、縮放與平移。")
+st.write("請稍後。")
