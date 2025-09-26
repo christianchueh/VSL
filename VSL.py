@@ -51,7 +51,7 @@ for i in range(num_spirals):
     angle_offset = (2 * np.pi / num_spirals) * i
     r_offset = line_spacing_factor * np.sin(theta + angle_offset * 2) * (main_r_profile / top_radius)
     r_i = main_r_profile + r_offset
-    theta_i = theta + i * 0.4
+    theta_i = theta + i * 0.2
     x_full, y_full, z_full = r_i * np.cos(theta_i), r_i * np.sin(theta_i), z
     fig.add_trace(go.Scatter3d(x=x_full, y=y_full, z=z_full, mode='lines', line=dict(color=colors[i], width=line_width),
                                hoverinfo='none'))
