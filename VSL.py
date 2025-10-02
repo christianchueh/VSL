@@ -33,7 +33,7 @@ spiral_height = 40
 bottom_radius = 1.5
 top_radius = 14.0
 line_spacing_factor = 0.3
-line_width = 2
+line_width = 1
 marker_size = 8
 
 # --- 生成圖形 (這部分和之前的腳本完全相同) ---
