@@ -21,7 +21,7 @@ except FileNotFoundError:
     st.stop()
 
 # --- 顏色主題 ---
-colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
+colors = ['#92a8c3', '#c59c8e', '#a1b6a1', '#c19396', '#b6a7c4', '#b4a39b']
 
 # --- 螺旋參數設定 ---
 # (您可以保留這些參數，或者之後將它們變成 Streamlit 的互動元件)
