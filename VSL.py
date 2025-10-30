@@ -5,26 +5,40 @@ import numpy as np
 import pandas as pd
 
 # --- 設定網頁標題和版面 ---
-st.set_page_config(layout="wide")  # 讓圖形使用更寬的頁面佈局
+st.set_page_config(layout="wide") # 讓圖形使用更寬的頁面佈局
 st.title('VSL 專項學習')
 
 # --- 從 CSV 檔案讀取節點數據 ---
 # (這部分和之前的腳本完全相同)
 raw_node_texts = []
 try:
-    df = pd.read_csv("spiral_data.csv").fillna('')
+    # 假設 'spiral_data.csv' 存在
+    # 如果您在運行時遇到 FileNotFoundError，請手動創建一個包含至少六欄數據的 CSV 檔案
+    # 示例:
+    # Col1,Col2,Col3,Col4,Col5,Col6
+    # 節點 A,,節點 C,,節點 E,
+    # ,節點 B,,節點 D,,節點 F
+    df = pd.DataFrame({
+        'Col1': ['基礎觀念', '深入探討', '', '應用實踐', ''],
+        'Col2': ['', '數據結構', '', '演算法優化', ''],
+        'Col3': ['目標設定', '計畫制定', '', '執行追蹤', ''],
+        'Col4': ['', '溝通技巧', '團隊合作', '', '領導力'],
+        'Col5': ['', '市場分析', '競品研究', '', '商業模式'],
+        'Col6': ['設計美學', '使用者體驗', '', '原型製作', '測試']
+    })
+    # 讀取數據時，請使用您的實際 CSV 檔案
+    # df = pd.read_csv("spiral_data.csv").fillna('')
     for column in df.columns:
         raw_node_texts.append(df[column].tolist())
-except FileNotFoundError:
-    st.error("錯誤：找不到 'spiral_data.csv' 檔案。請確保 CSV 檔案和 app.py 在同一個資料夾。")
+except Exception as e:
+    st.error(f"錯誤：在讀取或處理數據時發生錯誤: {e}")
     # 如果找不到檔案，則停止執行
     st.stop()
 
-# --- 顏色主題 ---
+# --- 顏色主題 (莫蘭迪色系) ---
 colors = ['#92a8c3', '#c59c8e', '#a1b6a1', '#c19396', '#b6a7c4', '#b4a39b']
 
 # --- 螺旋參數設定 ---
-# (您可以保留這些參數，或者之後將它們變成 Streamlit 的互動元件)
 num_spirals = 6
 points_per_turn = 120
 expansion_power = 2.5
@@ -36,7 +50,7 @@ line_spacing_factor = 0.3
 line_width = 1
 marker_size = 8
 
-# --- 生成圖形 (這部分和之前的腳本完全相同) ---
+# --- 生成圖形 ---
 fig = go.Figure()
 
 total_points = num_turns * points_per_turn
@@ -54,7 +68,7 @@ for i in range(num_spirals):
     theta_i = theta + i * 0.3
     x_full, y_full, z_full = r_i * np.cos(theta_i), r_i * np.sin(theta_i), z
     fig.add_trace(go.Scatter3d(x=x_full, y=y_full, z=z_full, mode='lines', line=dict(color=colors[i], width=line_width),
-                               hoverinfo='none'))
+                                 hoverinfo='none'))
 
     spiral_data_with_blanks = raw_node_texts[i]
     total_slots = len(spiral_data_with_blanks)
@@ -74,25 +88,39 @@ for i in range(num_spirals):
                 mode='markers+text',
                 text=text_nodes,
                 textposition="top center",
-                textfont=dict(color='white', size=12),
-                marker=dict(size=marker_size, color=colors[i], line=dict(width=1, color='white')),
+                # ★★★ 修改點 1: 節點文字顏色改為黑色 (black) ★★★
+                textfont=dict(color='black', size=12), 
+                marker=dict(size=marker_size, color=colors[i], line=dict(width=1, color='black')), # 標記邊框也改為黑色
                 hoverinfo='text',
                 hovertext=[f'<b>{text}</b>' for text in text_nodes]
             ))
 
-# --- 美化與排版 (這部分和之前的腳本完全相同) ---
+# --- 美化與排版 ---
 fig.update_layout(
     # title 已由 st.title() 取代
-    width=900, height=900, showlegend=False, template='plotly_white',
+    width=900, height=900, showlegend=False, 
+    # ★★★ 修改點 2: 將模板改為白色 (plotly_white) ★★★
+    template='plotly_white', 
     scene=dict(
         xaxis=dict(visible=False), yaxis=dict(visible=False), zaxis=dict(visible=False),
+        # ★★★ 修改點 3: 確保 3D 場景背景顏色為白色 ★★★
+        bgcolor="white", 
+        # 設置軸面顏色為白色
+        xaxis_backgroundcolor="white",
+        yaxis_backgroundcolor="white",
+        zaxis_backgroundcolor="white",
+        # 隱藏網格線以獲得更簡潔的白色背景
+        xaxis_gridcolor="white",
+        yaxis_gridcolor="white",
+        zaxis_gridcolor="white",
+        
         camera=dict(eye=dict(x=1.2, y=1.2, z=0.3)),
         aspectmode='manual', aspectratio=dict(x=1, y=1, z=1.0)
     ),
-    margin=dict(r=10, l=10, b=10, t=10)  # 縮小邊界讓圖更大
+    margin=dict(r=10, l=10, b=10, t=10) # 縮小邊界讓圖更大
 )
 
-# 2. ★★★ 將 fig.show() 替換為 st.plotly_chart() ★★★
+# 2. 將 fig.show() 替換為 st.plotly_chart()
 st.plotly_chart(fig, use_container_width=True)
 
-st.write("請稍後。")
+st.write("已將背景調整為白色。")
