@@ -83,7 +83,7 @@ for i in range(num_spirals):
 # --- 美化與排版 (這部分和之前的腳本完全相同) ---
 fig.update_layout(
     # title 已由 st.title() 取代
-    width=900, height=900, showlegend=False, template='plotly_dark',
+    width=900, height=900, showlegend=False, template='plotly_white',
     scene=dict(
         xaxis=dict(visible=False), yaxis=dict(visible=False), zaxis=dict(visible=False),
         camera=dict(eye=dict(x=1.2, y=1.2, z=0.3)),
