@@ -47,7 +47,7 @@ spiral_height = 40
 bottom_radius = 1.5
 top_radius = 14.0
 line_spacing_factor = 0.3
-line_width = 1
+line_width = 2
 marker_size = 8
 
 # --- 生成圖形 ---
